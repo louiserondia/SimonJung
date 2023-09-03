@@ -68,6 +68,10 @@
 </Menu>
 {/if}
 
+<button class="home click" on:click={() => {clicks  = 3;}}>
+	CLICK 3
+</button>
+
 <button class="home" on:click={() => {clicks  = 0;}}>
 	<img src="/img/home.png" alt="home" class="home-img" />
 </button>
@@ -100,5 +104,9 @@
 			height: 2rem;
 			width: auto;
 		}
+	}
+	
+	.click {
+		right: 6rem !important;
 	}
 </style>
