@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
+	import Menu from '$lib/components/Menu.svelte';
 
 	const srcs: string[] = ['/img/1.PNG', '/img/2.PNG', '/img/3.PNG'];
 	const objects: string[] = ['/img/1a.png', '/img/2a.png', '/img/3a.png'];
@@ -47,6 +48,7 @@
 			clicks++;
 		}
 	}
+
 </script>
 
 {#if clicks < 3}
@@ -61,10 +63,14 @@
 		/>
 	</div>
 {:else}
-<div class="title">
-	<h1 on:mouseup={() => {clicks = 0;}}>SIMON JUNG</h1>
-</div>
+<Menu>
+	
+</Menu>
 {/if}
+
+<button class="home" on:click={() => {clicks  = 0;}}>
+	<img src="/img/home.png" alt="home" class="home-img" />
+</button>
 
 <style lang="scss">
 	.img-container {
@@ -81,16 +87,18 @@
 			width: auto;
 		}
 	}
-	
-	.title {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		h1 {
-			cursor: pointer;
-			font-size: xx-large;
-			margin-bottom: 10rem;
+
+	button.home {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+		background: none;
+		color: inherit;
+		border: none;
+		cursor: pointer;
+		.home-img {
+			height: 2rem;
+			width: auto;
 		}
 	}
 </style>
