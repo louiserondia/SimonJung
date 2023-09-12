@@ -2,7 +2,6 @@
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import Menu from '$lib/components/Menu.svelte';
-	import '$lib/style/header.scss';
 
 	const srcs: string[] = ['/img/1.PNG', '/img/2.PNG', '/img/3.PNG'];
 	const objects: string[] = ['/img/1a.png', '/img/2a.png', '/img/3a.png'];
@@ -89,6 +88,8 @@
 </button>
 
 <style lang="scss">
+	@import '$lib/style/header.scss';
+
 	.img-container {
 		position: relative;
 		width: 100vw;

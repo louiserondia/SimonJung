@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Home from '$lib/components/Home.svelte';
-	import '$lib/style/header.scss';
 
 	function darkMode() {
 		window.document.body.classList.toggle('dark-mode');
@@ -21,6 +20,8 @@
 </body>
 
 <style lang="scss">
+	@import '$lib/style/header.scss';
+
 	:global(body) {
 		background-color: white;
 		color: black;
@@ -41,7 +42,7 @@
 		cursor: pointer;
 	}
 
-	:global(body.dark-mode) {
+	:global(body.dark-mode) .dark-mode-btn{
 		@include dark-mode-bg-color;
 	}
 </style>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '$lib/style/header.scss';
 
 	let isTransformed: boolean = false;
 	let optionsOpened: boolean = false;
@@ -91,6 +90,8 @@
 {/if}
 
 <style lang="scss">
+	@import '$lib/style/header.scss';
+
 	.title {
 		display: flex;
 		justify-content: center;
