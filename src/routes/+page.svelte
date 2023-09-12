@@ -1,33 +1,18 @@
 <script lang="ts">
 	import Home from '$lib/components/Home.svelte';
-
-	let isNightMode: boolean = false;
-	let backgroundColor: string = 'white';
-	let fontColor: string = 'black';
+	import '$lib/style/header.scss';
 
 	function darkMode() {
 		window.document.body.classList.toggle('dark-mode');
 	}
 
-	function nightMode() {
-		isNightMode = !isNightMode;
-		console.log(isNightMode);
-		if (isNightMode === true) {
-			backgroundColor = '#2f3480';
-			fontColor = 'white';
-		} else {
-			backgroundColor = 'white';
-			fontColor = 'black';
-		}
-	}
 </script>
 
-<!-- <body style="--backgroundColor:{backgroundColor}; --fontColor:{fontColor};"> -->
 <body>
 	<Home />
 
 	<button
-		class="night-mode"
+		class="dark-mode-btn"
 		on:click={() => {
 			darkMode();
 		}}
@@ -47,20 +32,16 @@
 		color: white;
 	}
 
-	// body {
-	// 	background-color: var(--backgroundColor);
-	// 	color: var(--fontColor);
-	// 	button {
-	// 		color: var(--fontColor);
-	// 	}
-	// }
-
-	.night-mode {
+	.dark-mode-btn {
 		position: absolute;
 		bottom: 2rem;
 		left: 2rem;
 		border: none;
 		background-color: inherit;
 		cursor: pointer;
+	}
+
+	:global(body.dark-mode) {
+		@include dark-mode-bg-color;
 	}
 </style>

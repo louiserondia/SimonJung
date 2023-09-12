@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import Menu from '$lib/components/Menu.svelte';
+	import '$lib/style/header.scss';
 
 	const srcs: string[] = ['/img/1.PNG', '/img/2.PNG', '/img/3.PNG'];
 	const objects: string[] = ['/img/1a.png', '/img/2a.png', '/img/3a.png'];
@@ -38,7 +39,11 @@
 
 		const pixel = ctx.getImageData(x, y, 1, 1).data;
 		isTransparent = pixel[3] === 0;
-		if (!isTransparent) img.src = hover[index];
+		if (!isTransparent) {
+
+			img.src = hover[index];
+			// console.log(event.clientX, event.clientY);
+		} 
 		else img.src = objects[index];
 	}
 
@@ -48,7 +53,6 @@
 			clicks++;
 		}
 	}
-
 </script>
 
 {#if clicks < 3}
@@ -63,16 +67,24 @@
 		/>
 	</div>
 {:else}
-<Menu>
-	
-</Menu>
+	<Menu />
 {/if}
 
-<button class="home click" on:click={() => {clicks  = 3;}}>
+<button
+	class="home click"
+	on:click={() => {
+		clicks = 3;
+	}}
+>
 	CLICK 3
 </button>
 
-<button class="home" on:click={() => {clicks  = 0;}}>
+<button
+	class="home"
+	on:click={() => {
+		clicks = 0;
+	}}
+>
 	<img src="/img/home.png" alt="home" class="home-img" />
 </button>
 
@@ -92,6 +104,10 @@
 		}
 	}
 
+	:global(body.dark-mode) .img-container {
+		@include dark-mode-bg-color;
+	}
+
 	button.home {
 		position: absolute;
 		right: 1rem;
@@ -105,8 +121,16 @@
 			width: auto;
 		}
 	}
-	
+
+	:global(body.dark-mode) button.home {
+		@include dark-mode-bg-color;
+	}
+
 	.click {
 		right: 6rem !important;
+	}
+
+	:global(body.dark-mode) .click {
+		@include dark-mode-bg-color;
 	}
 </style>

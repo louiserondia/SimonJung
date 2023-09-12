@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '$lib/style/header.scss';
+
 	let isTransformed: boolean = false;
 	let optionsOpened: boolean = false;
 	let contactOpened: boolean = false;
@@ -21,6 +23,9 @@
 	}
 
 	function openTab(event: MouseEvent) {
+		if (!optionsOpened)
+			return;
+		
 		const x = event.clientX;
 		const y = event.clientY;
 
@@ -29,9 +34,9 @@
 		else if (x < window.innerWidth / 2 && y > window.innerHeight / 2) okOpened = !okOpened;
 		else if (x > window.innerWidth / 2 && y > window.innerHeight / 2)
 			contactOpened = !contactOpened;
-		// soit if else if et on a un boolean pour chaque tab et on peut en ouvrir plusieurs a la fois
-		// soit tabopened = un nombre entre 1 et 4 mais alors on a que 1 tab ouvert à la fois
 	}
+
+	// protéger pour pas que quand on clique sur simon ça ouvre les onglets
 </script>
 
 <div class="title">
@@ -52,7 +57,7 @@
 		<button on:click={(e) => openTab(e)}>Contact</button>
 	</div>
 	{#if contactOpened}
-		<div class="contact-tab">
+		<div class="tab contact-tab">
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -60,7 +65,7 @@
 		</div>
 	{/if}
 	{#if yoOpened}
-		<div class="yo-tab">
+		<div class="tab yo-tab">
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -68,7 +73,7 @@
 		</div>
 	{/if}
 	{#if ouiOpened}
-		<div class="oui-tab">
+		<div class="tab oui-tab">
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -76,7 +81,7 @@
 		</div>
 	{/if}
 	{#if okOpened}
-		<div class="ok-tab">
+		<div class="tab ok-tab">
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -84,8 +89,6 @@
 		</div>
 	{/if}
 {/if}
-
-<!-- faire un truc avec des each et tout c vraiment trop moche là -->
 
 <style lang="scss">
 	.title {
@@ -98,6 +101,14 @@
 			font-size: xx-large;
 			margin-bottom: 10rem;
 		}
+	}
+
+	:global(body.dark-mode) .title {
+		@include dark-mode-bg-color;
+		background-image: url('/img/stars.gif');
+		background-size: 75%;
+		background-repeat: repeat;
+		background-attachment: fixed;
 	}
 
 	.option {
@@ -129,7 +140,9 @@
 		cursor: pointer;
 	}
 
-	.transformed {
+	:global(body.dark-mode) button {
+		background-color: transparent;
+		color: white;
 	}
 
 	.yo.transformed {
@@ -164,55 +177,41 @@
 		transform: translate(15vw, 13vh);
 	}
 
-	.contact-tab {
+	.tab {
 		display: flex;
 		position: absolute;
-		bottom: 3.5rem;
-		right: 3.5rem;
 		width: 15rem;
 		height: 15rem;
-		border: 2px solid black;
 		div {
 			margin: 0.5rem;
 		}
+	}
+
+	:global(body.dark-mode) .tab {
+		@include dark-mode-bg-color
+	}
+
+	.contact-tab {
+		bottom: 3.5rem;
+		right: 3.5rem;
+		border: 2px solid black;
 	}
 
 	.yo-tab {
-		display: flex;
-		position: absolute;
 		top: 3.5rem;
 		left: 3.5rem;
-		width: 15rem;
-		height: 15rem;
 		border: 2px solid red;
-		div {
-			margin: 0.5rem;
-		}
 	}
 
 	.oui-tab {
-		display: flex;
-		position: absolute;
 		top: 3.5rem;
 		right: 3.5rem;
-		width: 15rem;
-		height: 15rem;
 		border: 2px solid blue;
-		div {
-			margin: 0.5rem;
-		}
 	}
 
 	.ok-tab {
-		display: flex;
-		position: absolute;
 		bottom: 3.5rem;
 		left: 3.5rem;
-		width: 15rem;
-		height: 15rem;
 		border: 2px solid green;
-		div {
-			margin: 0.5rem;
-		}
 	}
 </style>
