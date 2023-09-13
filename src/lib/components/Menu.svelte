@@ -14,6 +14,7 @@
 	}
 
 	function clickOnTitle() {
+		// const option = document.getElementById('option') as HTMLElement;
 		if (isTransformed) {
 			optionsOpened = false;
 			okOpened = false;
@@ -26,6 +27,7 @@
 		} else {
 			optionsOpened = true;
 			setTimeout(() => {
+				// option.classList.toggle('transformed');
 				isTransformed = true;
 			}, 10);
 		}
@@ -48,7 +50,8 @@
 </script>
 
 <div class="title">
-	<h1 on:mouseenter={enterTitle} on:click={clickOnTitle}>SIMON JUNG</h1>
+	<!-- <h1 on:mouseenter={enterTitle} on:click={clickOnTitle}>SIMON JUNG</h1> -->
+	<h1 on:click={clickOnTitle}>SIMON JUNG</h1>
 </div>
 {#if optionsOpened}
 	<div class="option yo" class:transformed={isTransformed} class:transformed-2={yoOpened}>
@@ -142,8 +145,9 @@
 		left: 50vw;
 		color: transparent;
 		text-align: center;
+		transition: all 0.5s ease-out;
+		// transition: transform 0.5s ease-out, width 0.5s ease-out, height 0.5s ease-out;
 		transform: translate(0, 0);
-		transition: transform 0.5s ease-out, width 0.5s ease-out, height 0.5s ease-out;
 		button {
 			margin: auto;
 		}
