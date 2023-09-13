@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	let isTransformed: boolean = false;
 	let optionsOpened: boolean = false;
 	let contactOpened: boolean = false;
@@ -14,17 +13,27 @@
 		}, 10);
 	}
 
-	function leaveTitle() {
-		optionsOpened = false;
-		setTimeout(() => {
-			isTransformed = false;
-		}, 10);
+	function clickOnTitle() {
+		if (isTransformed) {
+			optionsOpened = false;
+			okOpened = false;
+			yoOpened = false;
+			ouiOpened = false;
+			contactOpened = false;
+			setTimeout(() => {
+				isTransformed = false;
+			}, 10);
+		} else {
+			optionsOpened = true;
+			setTimeout(() => {
+				isTransformed = true;
+			}, 10);
+		}
 	}
 
 	function openTab(event: MouseEvent) {
-		if (!optionsOpened)
-			return;
-		
+		if (!optionsOpened) return;
+
 		const x = event.clientX;
 		const y = event.clientY;
 
@@ -39,21 +48,29 @@
 </script>
 
 <div class="title">
-	<h1 on:mouseenter={enterTitle}>SIMON JUNG</h1>
+	<h1 on:mouseenter={enterTitle} on:click={clickOnTitle}>SIMON JUNG</h1>
 </div>
 {#if optionsOpened}
 	<div class="option yo" class:transformed={isTransformed} class:transformed-2={yoOpened}>
-		<button on:click={(e) => openTab(e)}>yo</button>
+		<button on:click={(e) => openTab(e)}>
+			<p>yo</p>
+		</button>
 	</div>
 	<div class="option oui" class:transformed={isTransformed} class:transformed-2={ouiOpened}>
-		<button on:click={(e) => openTab(e)}>oui</button>
+		<button on:click={(e) => openTab(e)}>
+			<p>oui</p>
+		</button>
 	</div>
 	<div class="option ok" class:transformed={isTransformed} class:transformed-2={okOpened}>
-		<button on:click={(e) => openTab(e)}>ok</button>
+		<button on:click={(e) => openTab(e)}>
+			<p>ok</p>
+		</button>
 	</div>
 	<div class="option contact" class:transformed={isTransformed} class:transformed-2={contactOpened}>
 		<!-- <img src="/img/nuage.png" alt="nuage" class="nuage"/> -->
-		<button on:click={(e) => openTab(e)}>Contact</button>
+		<button on:click={(e) => openTab(e)}>
+			<p>Contact</p>
+		</button>
 	</div>
 	{#if contactOpened}
 		<div class="tab contact-tab">
@@ -100,7 +117,6 @@
 		h1 {
 			cursor: pointer;
 			font-size: xx-large;
-			margin-bottom: 10rem;
 		}
 	}
 
@@ -117,20 +133,24 @@
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center;
-		// background-image: url("/img/nuage.png");
-		// height: 8rem;
-		// width: 8rem;
+		background-image: url('/img/nuage.png');
+		height: 1.5rem;
+		width: 1.5rem;
 		display: flex;
 		position: absolute;
-		top: 38vh;
-		left: 48vw;
+		top: 50vh;
+		left: 50vw;
 		color: transparent;
 		text-align: center;
 		transform: translate(0, 0);
-		transition: transform 0.5s ease-out, color 0.5s linear;
-		h2 {
+		transition: transform 0.5s ease-out, width 0.5s ease-out, height 0.5s ease-out;
+		button {
 			margin: auto;
 		}
+	}
+
+	:global(body.dark-mode) .option {
+		background-image: url('/img/nuage-night.png');
 	}
 
 	button {
@@ -146,36 +166,41 @@
 		color: white;
 	}
 
+	.transformed {
+		width: 9rem;
+		height: 9rem;
+	}
+
 	.yo.transformed {
-		transform: translate(-20vw, -17vh);
+		transform: translate(calc(-20vw - 4.5rem), calc(-17vh - 4.5rem));
 	}
 
 	.yo.transformed-2 {
-		transform: translate(-15vw, -13vh);
+		transform: translate(calc(-15vw - 4.5rem), calc(-13vh - 4.5rem));
 	}
 
 	.oui.transformed {
-		transform: translate(20vw, -17vh);
+		transform: translate(calc(20vw - 4.5rem), calc(-17vh - 4.5rem));
 	}
 
 	.oui.transformed-2 {
-		transform: translate(15vw, -13vh);
+		transform: translate(calc(15vw - 4.5rem), calc(-13vh - 4.5rem));
 	}
 
 	.ok.transformed {
-		transform: translate(-20vw, 17vh);
+		transform: translate(calc(-20vw - 4.5rem), calc(17vh - 4.5rem));
 	}
 
 	.ok.transformed-2 {
-		transform: translate(-15vw, 13vh);
+		transform: translate(calc(-15vw - 4.5rem), calc(13vh - 4.5rem));
 	}
 
 	.contact.transformed {
-		transform: translate(20vw, 17vh);
+		transform: translate(calc(20vw - 4.5rem), calc(17vh - 4.5rem));
 	}
 
 	.contact.transformed-2 {
-		transform: translate(15vw, 13vh);
+		transform: translate(calc(15vw - 4.5rem), calc(13vh - 4.5rem));
 	}
 
 	.tab {
@@ -189,7 +214,7 @@
 	}
 
 	:global(body.dark-mode) .tab {
-		@include dark-mode-bg-color
+		@include dark-mode-bg-color;
 	}
 
 	.contact-tab {

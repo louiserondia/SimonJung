@@ -8,7 +8,7 @@
 	const hover: string[] = ['/img/1b.png', '/img/2b.png', '/img/3b.png'];
 
 	let isTransparent: boolean = false;
-	let index: number = randomIndex(-1);
+	let index: number;
 	let clicks: number = 0;
 
 	let canvas: HTMLCanvasElement;
@@ -16,6 +16,7 @@
 
 	onMount(() => {
 		if (typeof document !== 'undefined' && browser) {
+			index = randomIndex(-1);
 			canvas = document.createElement('canvas');
 			ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 		}
@@ -26,7 +27,7 @@
 		while (res === index) res = Math.floor(Math.random() * srcs.length);
 		return res;
 	}
-
+	
 	function handleMouseMove(event: MouseEvent) {
 		let img = event.target as HTMLImageElement;
 		canvas.width = img.width;
@@ -35,23 +36,22 @@
 		const rect = img.getBoundingClientRect();
 		const x = Math.floor(((event.clientX - rect.left) / rect.width) * img.width);
 		const y = Math.floor(((event.clientY - rect.top) / rect.height) * img.height);
-
+		
 		const pixel = ctx.getImageData(x, y, 1, 1).data;
 		isTransparent = pixel[3] === 0;
 		if (!isTransparent) {
-
 			img.src = hover[index];
 			// console.log(event.clientX, event.clientY);
-		} 
-		else img.src = objects[index];
+		} else img.src = objects[index];
 	}
-
+	
 	function handleMouseUp() {
 		if (!isTransparent) {
 			index = randomIndex(index);
 			clicks++;
 		}
 	}
+
 </script>
 
 {#if clicks < 3}
@@ -100,8 +100,8 @@
 		.img-overlay {
 			position: absolute;
 			margin: auto;
-			height: 80vh;
-			width: auto;
+			width: 90%;
+			max-width: 350px;
 		}
 	}
 
@@ -124,14 +124,15 @@
 	}
 
 	:global(body.dark-mode) button.home {
-		@include dark-mode-bg-color;
+		color: white;
+	}
+
+	:global(body.dark-mode) .home-img {
+		content: url('/img/home-white.png');
 	}
 
 	.click {
 		right: 6rem !important;
 	}
 
-	:global(body.dark-mode) .click {
-		@include dark-mode-bg-color;
-	}
 </style>
