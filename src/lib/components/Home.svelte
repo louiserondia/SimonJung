@@ -13,14 +13,20 @@
 
 	let canvas: HTMLCanvasElement;
 	let ctx: CanvasRenderingContext2D;
+	
+	let img;
+	let sizeImg;
 
 	onMount(() => {
 		if (typeof document !== 'undefined' && browser) {
 			index = randomIndex(-1);
 			canvas = document.createElement('canvas');
 			ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+			img = document.getElementById('img-overlay') as HTMLElement;
+			sizeImg = img.getBoundingClientRect().width;
 		}
 	});
+
 
 	function randomIndex(index: number) {
 		let res = Math.floor(Math.random() * srcs.length);
@@ -41,7 +47,6 @@
 		isTransparent = pixel[3] === 0;
 		if (!isTransparent) {
 			img.src = hover[index];
-			// console.log(event.clientX, event.clientY);
 		} else img.src = objects[index];
 	}
 	
@@ -88,6 +93,7 @@
 </button>
 
 <style lang="scss">
+	$var: sizeImg;
 	@import '$lib/style/header.scss';
 
 	.img-container {
@@ -101,7 +107,22 @@
 			position: absolute;
 			margin: auto;
 			width: 90%;
-			max-width: 350px;
+			max-width: 450px;
+			@media only screen and (max-width: 500px) {
+				height: auto;
+				width: 90%;
+				max-width: 550px;
+			}
+			@media only screen and (max-height: 700px) {
+				width: auto;
+				height: 90%;
+				max-height: 650px;
+			}
+			@media only screen and (max-width: 500px) and (max-height: 700px) {
+				height: auto;
+				width: 90%;
+				max-width: 550px;
+			}
 		}
 	}
 
@@ -118,8 +139,11 @@
 		border: none;
 		cursor: pointer;
 		.home-img {
-			height: 2rem;
-			width: auto;
+			width: 7em;
+			@media (max-width: 550px) {
+				width: 18vw;
+
+			}
 		}
 	}
 
@@ -132,7 +156,8 @@
 	}
 
 	.click {
-		right: 6rem !important;
+		right: 33vw !important;
+		bottom: 2rem !important;
 	}
 
 </style>

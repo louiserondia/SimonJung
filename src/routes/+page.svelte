@@ -44,5 +44,6 @@
 
 	:global(body.dark-mode) .dark-mode-btn{
 		@include dark-mode-bg-color;
+		
 	}
 </style>

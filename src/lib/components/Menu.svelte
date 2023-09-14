@@ -50,8 +50,8 @@
 </script>
 
 <div class="title">
-	<!-- <h1 on:mouseenter={enterTitle} on:click={clickOnTitle}>SIMON JUNG</h1> -->
-	<h1 on:click={clickOnTitle}>SIMON JUNG</h1>
+	<h1 on:mouseenter={enterTitle} on:mouseup={clickOnTitle}>SIMON JUNG</h1>
+	<!-- <h1 on:click={clickOnTitle}>SIMON JUNG</h1> -->
 </div>
 {#if optionsOpened}
 	<div class="option yo" class:transformed={isTransformed} class:transformed-2={yoOpened}>
@@ -76,7 +76,10 @@
 		</button>
 	</div>
 	{#if contactOpened}
-		<div class="tab contact-tab">
+		<div on:click={() => {
+			contactOpened = false;
+		}}
+		class="tab contact-tab">
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -84,7 +87,12 @@
 		</div>
 	{/if}
 	{#if yoOpened}
-		<div class="tab yo-tab">
+		<div
+			on:click={() => {
+				yoOpened = false;
+			}}
+			class="tab yo-tab"
+		>
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -92,7 +100,10 @@
 		</div>
 	{/if}
 	{#if ouiOpened}
-		<div class="tab oui-tab">
+		<div on:click={() => {
+			ouiOpened = false;
+		}}
+		class="tab oui-tab">
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -100,7 +111,10 @@
 		</div>
 	{/if}
 	{#if okOpened}
-		<div class="tab ok-tab">
+		<div on:click={() => {
+			okOpened = false;
+		}}
+		class="tab ok-tab">
 			<div>
 				<h3>Appelez moi !!!</h3>
 				<p>Bonjour je m'appelle Simon je suis cool</p>
@@ -212,6 +226,7 @@
 		position: absolute;
 		width: 15rem;
 		height: 15rem;
+		cursor: pointer;
 		div {
 			margin: 0.5rem;
 		}
